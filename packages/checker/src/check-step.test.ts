@@ -41,6 +41,17 @@ describe('checkStep on wrong steps', () => {
     expect(verdict(previous, step)).toBe('invalid');
   });
 
+  it('names the likely mistake and gives a hint', () => {
+    expect(checkStep('2x+4=10', '2x=14').feedback).toEqual({
+      rule: 'sign-move',
+      message: expect.stringContaining('kept its sign') as string,
+    });
+  });
+
+  it('gives no feedback on a correct step', () => {
+    expect(checkStep('2x+4=10', '2x=6').feedback).toBeUndefined();
+  });
+
   it("returns the wrong step's own solutions", () => {
     expect(checkStep('5x=3', 'x=\\frac{5}{3}').solutions).toEqual({
       kind: 'point',

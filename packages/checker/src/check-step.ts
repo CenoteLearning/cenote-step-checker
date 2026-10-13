@@ -1,4 +1,5 @@
 import { analyse } from './analyse';
+import { diagnose, type Feedback } from './bug-library';
 import { sameSolutions, type SolutionSet } from './solution-set';
 
 export type Verdict = 'solved' | 'valid' | 'invalid' | 'unsupported' | 'unreadable';
@@ -7,6 +8,8 @@ export interface StepResult {
   verdict: Verdict;
   /** The step's own solution set, when it could be read. */
   solutions?: SolutionSet;
+  /** For an invalid step: the likely mistake and a hint. */
+  feedback?: Feedback;
 }
 
 /**
@@ -25,6 +28,8 @@ export function checkStep(previousLatex: string, stepLatex: string): StepResult 
   if (!current.ok) return { verdict: current.verdict };
 
   const { solutions, isAnswerForm } = current.step;
-  if (!sameSolutions(previous.step.solutions, solutions)) return { verdict: 'invalid', solutions };
+  if (!sameSolutions(previous.step.solutions, solutions)) {
+    return { verdict: 'invalid', solutions, feedback: diagnose(previous.step, current.step) };
+  }
   return { verdict: isAnswerForm ? 'solved' : 'valid', solutions };
 }
