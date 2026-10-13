@@ -27,6 +27,17 @@ git config core.hooksPath .githooks   # once per clone
    commit so the branch's small commits stay readable. Delete the branch
    after merging.
 
+## Branch protection
+
+`main` is protected by the ruleset in `.github/rulesets/protect-main.json`:
+changes arrive only through pull requests, the `Verify` check must pass on
+an up-to-date branch, review threads must be resolved, merges use merge
+commits, and force-pushes and deletion are blocked. Required approvals are
+0 while there is one maintainer; raise them to 1 when a second joins.
+
+To apply or update it: Settings → Rules → Rulesets → New ruleset → Import
+a ruleset, and choose that file.
+
 ## What a reviewer checks
 
 - **Correctness:** behaviour changes come with tests that would fail
