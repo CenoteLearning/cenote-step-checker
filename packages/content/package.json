@@ -1,0 +1,17 @@
+{
+  "name": "@cenote/content",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Problems and discovery-round sessions for the step checker.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@cenote/checker": "*"
+  }
+}
