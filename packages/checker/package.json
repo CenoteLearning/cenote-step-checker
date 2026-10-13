@@ -1,0 +1,14 @@
+{
+  "name": "@cenote/checker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Checks each step of a linear equation or inequality and names likely mistakes.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  }
+}
