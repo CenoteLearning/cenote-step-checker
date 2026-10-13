@@ -1,0 +1,23 @@
+#!/bin/sh
+# Enforce Conventional Commits on the subject line: type(scope)!: summary
+# Types: build chore ci docs feat fix perf refactor revert style test
+
+subject=$(head -n 1 "$1")
+
+case "$subject" in
+  "Merge "* | "Revert "* | "fixup! "* | "squash! "*) exit 0 ;;
+esac
+
+pattern='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9-]+\))?!?: [^ ].*$'
+
+if ! printf '%s' "$subject" | grep -Eq "$pattern"; then
+  echo "commit-msg: subject must follow Conventional Commits, e.g." >&2
+  echo "  feat(checker): name likely mistakes" >&2
+  echo "Got: $subject" >&2
+  exit 1
+fi
+
+if [ ${#subject} -gt 72 ]; then
+  echo "commit-msg: subject is ${#subject} characters; keep it to 72." >&2
+  exit 1
+fi
