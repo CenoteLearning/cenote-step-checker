@@ -12,6 +12,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@cortex-js/compute-engine": "^0.152.0"
+    "@cortex-js/compute-engine": "^0.163.0"
   }
 }
